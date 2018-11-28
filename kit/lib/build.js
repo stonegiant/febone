@@ -79,7 +79,9 @@ module.exports = kit.async(function * (opts) {
 
         yield kit.remove(f.dest + '');
 
-        f.dest.name += '.' + jhash.hash(f.contents);
+        if(!/^[0-9]+\.min$/.test(f.dest.name)){
+            f.dest.name += '.' + jhash.hash(f.contents);
+        }
         hashMap(src, kit.path.relative(opts.dist, f.dest + ''));
         f.dest = opts.dist + '/' + hashMap(src);
 
